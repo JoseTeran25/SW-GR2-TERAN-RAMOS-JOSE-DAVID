@@ -66,6 +66,48 @@ fun main() {
     ) // Quiero manda parametro 1 y 3 (sueldo, tasa, bonoEspecial)
     calcularSueldo(bonoEspecial = 40.00, tasa = 12.0, sueldo = 30.0)
 
+
+    val sumaUno = NumerosJava.Suma(3, 1);
+    println(sumaUno.sumar())
+
+    println(NumerosJava.Suma.pi)
+    println(NumerosJava.Suma.elevarAlCuadrado(2))
+    println(NumerosJava.Suma.historialSumas)
+
+    //Arreglos 16/05/2024
+
+    println("ARREGLOS")
+    //Arreglas Estaticos
+    val arregloEstatico: Array<Int> = arrayOf<Int>(1,2,3)
+    println("Estatico" + arregloEstatico)
+
+
+    //Arreglo Dinamicos
+    val arregloDinamico: ArrayList<Int> = arrayListOf(
+        1,2,3,4,5,6,7,8,9
+    )
+    println("Dinamico" + arregloDinamico )
+
+    //FOR EACH
+    val respuestaForEach: Unit = arregloDinamico
+        .forEach{valorActual: Int ->
+            println("Valor actual: ${valorActual}")
+        }
+
+    arregloDinamico.forEach{println("Valor Actual: ${it}")}
+
+
+    //Map -> Modifica el arreglo
+    // 1) enviamos el nuevo valor de la iteracion
+    //2) Nos devuelve un NUEVO ARREGLO con valores de la iteracion
+    val respuestaMap: List<Double> = arregloDinamico.map {
+        valorActual: Int ->
+        return@map valorActual.toDouble()+100
+    }
+    println(respuestaMap)
+
+    val respuestaMapDos = arregloEstatico.map{it + 15}
+    println(respuestaMapDos)
 }
 
 abstract class NumerosJava{
@@ -108,22 +150,56 @@ abstract class NumerosJava{
             numeroUno //el  this es OPCIONAL
             numeroDos// el this es OPCIONAL
         }
+
+        //Constructores secundarios  16/05/2024
+        constructor(
+            uno: Int?, // ? es que sea algun momento es nulleable
+            dos: Int
+        ):this(
+            if(uno==null) 0 else uno,
+            dos
+        )
+
+        constructor(
+            uno: Int, // ? es que sea algun momento es nulleable
+            dos: Int?
+        ):this(
+            if(dos==null) 0 else dos,
+            uno
+        )
+
+        constructor(
+            uno: Int?, // ? es que sea algun momento es nulleable
+            dos: Int?
+        ):this(
+            if(uno==null) 0 else uno,
+            if(dos==null) 0 else dos,
+        )
+
+
+
+        //devolvel la suma de dos numero
+        //Companion object: comparte entre todas las instancias, compartir
+        fun sumar():Int{
+            val total = numeroUno + numeroDos
+            agregarHistorial(total)
+            return total
+        }
+        companion object {
+            val pi =3.16
+            fun elevarAlCuadrado(num:Int):Int{
+                return num*num
+            }
+            val historialSumas = arrayListOf<Int>()
+            fun agregarHistorial(valorTotalSuma:Int){
+                historialSumas.add(valorTotalSuma)
+            }
+        }
     }
 
-    //devolvel la suma de dos numero
-    //Companion object: comparte entre todas las instancias, compartir
-    fun sumar():Int{
-        val total = numeroUno + numeroDos
-        //agregarHistorial(total)
-        return total
-    }
-    companion object {
-        val pi =3.16
-        fun elevarAlCuadrado(num:Int):Int{
-            return num*num
-        }
-        //val historialSumas = arrayListOf<Int>{}
-    }
+
+
+
 
 
 }
