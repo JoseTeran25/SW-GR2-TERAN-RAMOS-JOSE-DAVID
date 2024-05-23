@@ -108,6 +108,47 @@ fun main() {
 
     val respuestaMapDos = arregloEstatico.map{it + 15}
     println(respuestaMapDos)
+
+
+    // Operador Filter -> Filtra el arreglo
+    // 1) Devolver una expresion (t o f)
+    // Nuevo arreglo FILTRADO
+    val respuestaFilter: List<Int> = arregloDinamico.
+            filter { valorActural:Int ->
+                val mayoresACinco: Boolean = valorActural > 5
+                return@filter mayoresACinco
+            }
+    println("Filtrado :" + respuestaFilter)
+
+    val respuestaFilterDos = arregloDinamico.filter{it <= 5}
+    println("Filtrado funcional: " + respuestaFilterDos)
+
+
+    //operadores lógicos
+    // OR -> ANY
+    // AND -> ALL
+    val respuestaAny: Boolean = arregloDinamico.
+            any{ valorActual: Int ->
+                return@any (valorActual > 5)
+            }
+    println("Existe un valor mayor a 5? " + respuestaAny)
+
+    val respuestaAll: Boolean = arregloDinamico.
+            all{ valorActual: Int ->
+                return@all (valorActual>5)
+            }
+
+    println("Son todos mayores a 5? " + respuestaAll)
+
+    //Funcioón reduce (acumuladores)
+    val respuestaReduce: Int = arregloDinamico.
+            reduce{ acumulado: Int, valorActual: Int ->
+                return@reduce (acumulado+valorActual)
+            }
+
+    println("Valor acumulado es " + respuestaReduce)
+
+
 }
 
 abstract class NumerosJava{
